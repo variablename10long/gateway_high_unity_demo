@@ -14,7 +14,6 @@ public class SwipeGuiText : MonoBehaviour {
 	public void OnGUI() {
 	Touch[] touches = GameLogic.touches;
 		string msg = "";
-		bool isSwip = false;
 		foreach(Touch touch in touches) {
 			if(touch.phase == TouchPhase.Moved) {
 				Vector2 dp = touch.deltaPosition;

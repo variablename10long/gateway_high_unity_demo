@@ -1,6 +1,10 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Class is bloated and acts as an input handler, attempts to tie together several components to 
+/// make the system usable but isn't following the best reuse pattern.
+/// </summary>
 public class Jumper : MonoBehaviour {
 	
 	private bool _isJumping = false;
@@ -38,7 +42,6 @@ public class Jumper : MonoBehaviour {
 		}
 	}
 	
-	private bool _isFingerDown = false;
 	public void OnGUI() {
 		Event e = Event.current;
 		if(e.isKey) {
@@ -112,7 +115,7 @@ public class Jumper : MonoBehaviour {
 	}
 	
 	private void _DoJump() {
-		if(_isJumping == false) {
+		if(_isJumping == false && _isOnGround) {
 			_isJumping = true;
 			_isOnGround = false;
 			rigidbody.AddRelativeForce(JUMP_VECTOR * jumpForce,JUMP_FORCE_MODE);
@@ -120,6 +123,7 @@ public class Jumper : MonoBehaviour {
 	}
 	
 	private void _DoGravitySwap() {
+		_isOnGround = false;
 		this.GetComponent<GravitySwitchComponent>().Swtich();
 		this.GetComponent<PlayerGravityAnim>().ShouldAnimate = true;
 		jumpForce *= -1;
